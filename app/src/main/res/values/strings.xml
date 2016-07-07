@@ -3,4 +3,12 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="user_profile.placeholder.image">Изменить фотографию профиля</string>
+    <string name="user_profile_dialog_gallery">Загрузить из галлереи</string>
+    <string name="user_profile_dialog_camera">Сделать фото</string>
+    <string name="user_profile_dialog_cancel">Отмена</string>
+    <string name="user_profile_dialog_title">Изменить фотографию профиля</string>
+    <string name="user_profile_chose_message">Выберите фото</string>
+    <string name="enter">ВОЙТИ</string>
+    <string name="forgotPassword">Забыли пароль?</string>
 </resources>
