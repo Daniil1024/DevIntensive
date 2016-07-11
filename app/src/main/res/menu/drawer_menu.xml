@@ -10,5 +10,8 @@
             android:id="@+id/team_menu"
             android:icon="@drawable/ic_people_black_24dp"
             android:title="Команда"></item>
+        <item
+            android:id="@+id/exit"
+            android:title="Выйти"></item>
     </group>
 </menu>

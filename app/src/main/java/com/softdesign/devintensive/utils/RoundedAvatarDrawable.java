@@ -13,7 +13,6 @@ import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.support.design.widget.NavigationView;
-import android.util.Log;
 import android.widget.ImageView;
 
 import com.softdesign.devintensive.R;
@@ -36,9 +35,7 @@ public class RoundedAvatarDrawable{
     public static void setAvatarBitmap(Bitmap avatarBitmap, NavigationView view) {
         try {
             getAvatar(view).setImageBitmap(avatarBitmap);
-        } catch(Exception e) {
-            Log.e("DEV ", e.toString());
-        }
+        } catch(Exception e) {}
     }
 
     public static Bitmap getRoundedBitmap(Bitmap bitmap) {
