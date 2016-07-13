@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<android.support.v4.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior=".ui.behaviors.CustomNestedScrollBehavior">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                style="@style/icon.left"
+                android:src="@drawable/ic_call_black_24dp"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/size_large_72"
+                android:layout_marginLeft="@dimen/spacing_medium_32"
+                android:layout_marginRight="@dimen/spacing_normal_16"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:orientation="vertical"
+                android:weightSum="1">
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:id="@+id/phone_et"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:enabled="false"
+                        android:focusable="false"
+                        android:hint="Мобильный телефон"
+                        android:inputType="phone"
+                        android:text="8(953)-777-67-51"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/grey"/>
+                </android.support.design.widget.TextInputLayout>
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/call"
+                style="@style/icon.right"
+                android:src="@drawable/ic_phone_in_talk_black_24dp"/>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/line_height"
+            android:layout_marginLeft="@dimen/spacing_larger_72"
+            android:background="@color/grey_light"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                style="@style/icon.left"
+                android:src="@drawable/ic_email_black_24dp"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/size_large_72"
+                android:layout_marginLeft="@dimen/spacing_medium_32"
+                android:layout_marginRight="@dimen/spacing_normal_16"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:orientation="vertical"
+                android:weightSum="1">
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:id="@+id/mail_et"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:enabled="false"
+                        android:focusable="false"
+                        android:hint="E-mail"
+                        android:inputType="textEmailAddress"
+                        android:text="den14072004@mail.ru"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/grey"/>
+                </android.support.design.widget.TextInputLayout>
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/send_mail"
+                style="@style/icon.right"
+                android:src="@drawable/ic_send_black_24dp"/>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/line_height"
+            android:layout_marginLeft="@dimen/spacing_larger_72"
+            android:background="@color/grey_light"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                style="@style/icon.left"
+                android:src="@drawable/vk_circle"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/size_large_72"
+                android:layout_marginLeft="@dimen/spacing_medium_32"
+                android:layout_marginRight="@dimen/spacing_normal_16"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:orientation="vertical"
+                android:weightSum="1">
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:id="@+id/vk_et"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:enabled="false"
+                        android:focusable="false"
+                        android:hint="Профиль ВК"
+                        android:inputType="textUri"
+                        android:text="vk.com/dzhitov"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/grey"/>
+                </android.support.design.widget.TextInputLayout>
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/view_vk"
+                style="@style/icon.right"
+                android:src="@drawable/eye"/>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/line_height"
+            android:layout_marginLeft="@dimen/spacing_larger_72"
+            android:background="@color/grey_light"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                style="@style/icon.left"
+                android:src="@drawable/github_circle"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/size_large_72"
+                android:layout_marginLeft="@dimen/spacing_medium_32"
+                android:layout_marginRight="@dimen/spacing_normal_16"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:orientation="vertical"
+                android:weightSum="1">
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:id="@+id/git_et"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:enabled="false"
+                        android:focusable="false"
+                        android:hint="Репозиторий"
+                        android:inputType="textUri"
+                        android:text="github.com/Daniil1024/DevIntensive"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/grey"
+                        android:textSize="14dp"/>
+                </android.support.design.widget.TextInputLayout>
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/view_gitub"
+                style="@style/icon.right"
+                android:src="@drawable/eye"/>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/line_height"
+            android:layout_marginLeft="@dimen/spacing_larger_72"
+            android:background="@color/grey_light"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <ImageView
+                style="@style/icon.left"
+                android:src="@drawable/account_circle"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/spacing_medium_32"
+                android:layout_marginRight="@dimen/spacing_normal_16"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:id="@+id/bio_et"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:enabled="false"
+                        android:focusable="false"
+                        android:gravity="left|top"
+                        android:hint="О себе"
+                        android:inputType="textMultiLine"
+                        android:text=" Давным-давно в далекой галактике шли... ЗВЕЗДНЫЕ ВОЙНЫ Эпизод 4 Новая надежда Идет гражданская война. Космические корабли повстанцев, наносящие удар с тайной базы, одержали первую победу, в схватке со зловещей Галактической Империей. Во время сражения, разведчикам повстанцев удалось похитить секретные планы, связанные с главным оружием Империи - Звездой Смерти, бронированной космической станцией, способной уничтожить целую планету. Преследуемая имперскими агентами принцесса Лея спешит домой на своем звездном корабле. При ней находятся похищенные планы, которые могут спасти ее народ и вернуть свободу галактике. "
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/grey"/>
+                </android.support.design.widget.TextInputLayout>
+            </LinearLayout>
+
+            <ImageView style="@style/icon.right"/>
+        </LinearLayout>
+    </LinearLayout>
+</android.support.v4.widget.NestedScrollView>
