@@ -74,7 +74,7 @@ public class TextValidator implements TextWatcher {
                 } catch (Exception e) {
                 }
                 break;
-            case R.id.login_email:
+            case R.id.login_email_et:
                 try {
                     if (!text.contains(".")) {
                         mEditText.setError("Нет разделителя доменного имени(точки)");

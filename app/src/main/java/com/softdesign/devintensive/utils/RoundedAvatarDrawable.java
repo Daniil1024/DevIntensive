@@ -16,7 +16,6 @@ import android.support.design.widget.NavigationView;
 import android.widget.ImageView;
 
 import com.softdesign.devintensive.R;
-import com.softdesign.devintensive.ui.activities.MainActivity;
 
 
 /**
@@ -27,7 +26,6 @@ public class RoundedAvatarDrawable{
     public static NavigationView sView;
 
     public static ImageView getAvatar(NavigationView view) {
-        MainActivity mainActivity = new MainActivity();
         sView = view;
         return (ImageView)sView.getHeaderView(0).findViewById(R.id.avatar);
     }

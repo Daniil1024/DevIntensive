@@ -11,4 +11,12 @@
     <string name="user_profile_chose_message">Выберите фото</string>
     <string name="enter">ВОЙТИ</string>
     <string name="forgotPassword">Забыли пароль?</string>
+    <string name="auth.mail">Введите email</string>
+    <string name="auth.password">Введите пароль</string>
+    <string name="auth.remember">Забыли пароль?</string>
+    <string name="chooser_title">chooser_title</string>
+    <string name="choose_file">choose_file</string>
+    <string name="storage_removed">storage_removed</string>
+    <string name="error_selecting_file">error_selecting_file</string>
+    <string name="empty_directory">empty_directory</string>
 </resources>
