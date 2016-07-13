@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="fab_right_space">8dp</dimen>
+    <dimen name="user_info_size">112dp</dimen>
+    <dimen name="font_small_14">14sp</dimen>
 </resources>

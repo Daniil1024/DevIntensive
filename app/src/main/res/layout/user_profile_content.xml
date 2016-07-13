@@ -2,82 +2,15 @@
 
 <android.support.v4.widget.NestedScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+    app:layout_behavior=".ui.behaviors.CustomNestedScrollBehavior">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="110dp"
-            android:background="@color/grey"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="@dimen/spacing_normal_16"
-                android:layout_marginLeft="@dimen/spacing_normal_16"
-                android:layout_marginRight="@dimen/spacing_normal_16"
-                android:layout_marginTop="@dimen/spacing_normal_16"
-                android:layout_weight="0.25"
-                android:background="@color/grey"
-                android:fontFamily="sans-serif"
-                android:gravity="center"
-                android:text="5\n Рейтинг"
-                android:textColor="@color/white"
-
-                android:textStyle="bold"/>
-
-            <View
-                android:layout_width="1dp"
-                android:layout_height="80dp"
-                android:layout_gravity="center"
-                android:background="@color/grey_light"/>
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="@dimen/spacing_normal_16"
-                android:layout_marginLeft="@dimen/spacing_normal_16"
-                android:layout_marginRight="@dimen/spacing_normal_16"
-                android:layout_marginTop="@dimen/spacing_normal_16"
-                android:layout_weight="0.5"
-                android:background="@color/grey"
-                android:fontFamily="sans-serif"
-                android:gravity="center"
-                android:text="5\n Строк кода"
-                android:textColor="@color/white"
-
-                android:textStyle="bold"/>
-
-            <View
-                android:layout_width="1dp"
-                android:layout_height="80dp"
-                android:layout_gravity="center"
-                android:background="@color/grey_light"/>
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="@dimen/spacing_normal_16"
-                android:layout_marginLeft="@dimen/spacing_normal_16"
-                android:layout_marginRight="@dimen/spacing_normal_16"
-                android:layout_marginTop="@dimen/spacing_normal_16"
-                android:layout_weight="0.25"
-                android:background="@color/grey"
-                android:fontFamily="sans-serif"
-                android:gravity="center"
-                android:text="5\n Проектов"
-                android:textColor="@color/white"
-                android:textStyle="bold"/>
-        </LinearLayout>
-
 
         <LinearLayout
             android:layout_width="match_parent"

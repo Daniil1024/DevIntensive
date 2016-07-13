@@ -7,8 +7,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -34,6 +34,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.softdesign.devintensive.R;
 import com.softdesign.devintensive.data.managers.DataManager;
@@ -79,6 +80,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     CollapsingToolbarLayout mCollapsingToolbar;
     @BindView(R.id.appbar_layout)
     AppBarLayout mAppBarLayout;
+    @BindView(R.id.navigation_view)
+    NavigationView mNavigationView;
     @BindView(R.id.user_photo_img)
     ImageView mProfileImage;
 
@@ -108,6 +111,15 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     @BindView(R.id.view_gitub)
     ImageView mViewGithub;
 
+    @BindView(R.id.ratings_user_info)
+    TextView rating;
+    @BindView(R.id.codeLines_user_info)
+    TextView codelines;
+    @BindView(R.id.projects_user_info)
+    TextView projects;
+
+    ImageView mAvatar;
+
     //стандартный метод activity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -118,7 +130,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         //bind всех view инициализированных через @BindView
         ButterKnife.bind(this);
 
-        mDataManager = DataManager.getINSTANCE();
+        mDataManager = DataManager.getInstance();
 
         //добавление EditText-ов в массив
         mUserInfoViews = new ArrayList<>();
@@ -127,6 +139,14 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         mUserInfoViews.add(mUserVk);
         mUserInfoViews.add(mUserGit);
         mUserInfoViews.add(mUserBio);
+        try {
+            int[] info = mDataManager.getPrefencesManager().loadUserInfo();
+            rating.setText(info[0]+"");
+            codelines.setText(info[1]+"");
+            projects.setText(info[2]+"");
+        }catch(Exception e) {
+            Log.d(TAG, e.toString());
+        }
 
         //установка обработчика нажатий
         mFab.setOnClickListener(this);
@@ -142,15 +162,18 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         mUserVk.addTextChangedListener(new TextValidator(mUserVk));
         mUserGit.addTextChangedListener(new TextValidator(mUserGit));
 
-        //установка тулбара и NavigationDrawer
-        setupToolbar();
-        setupDrawer();
-
         //загрузка пользовотельских данных
         loadUserInfoValue();
 
         //установка фото пользователя
-        Picasso.with(this).load(mDataManager.getPrefencesManager().loadUserPhoto()).placeholder(R.drawable.userphoto).into(mProfileImage);// TODO: 30.06.2016 сделать плейсхолдер и transform + crop
+        mAvatar = RoundedAvatarDrawable.getAvatar(mNavigationView);
+        mAvatar.setImageURI(mDataManager.getPrefencesManager().loadUserPhotos().get(1));
+        Picasso.with(this).load(mDataManager.getPrefencesManager().loadUserPhotos().get(0)).placeholder(R.drawable.userphoto).into(mProfileImage);// TODO: 30.06.2016 сделать плейсхолдер и transform + crop
+        Picasso.with(this).load(mDataManager.getPrefencesManager().loadUserPhotos().get(1)).placeholder(R.drawable.avatar).into((ImageView) ((NavigationView) findViewById(R.id.navigation_view)).getHeaderView(0).findViewById(R.id.avatar));// TODO: 30.06.2016 сделать плейсхолдер и transform + crop
+        //установка тулбара и NavigationDrawer
+        setupToolbar();
+        setupDrawer();
+
         if (savedInstanceState == null) {
             //активити запускается впревые
         } else {
@@ -225,7 +248,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             //ImageView(позвонить)
             case R.id.call:
                 if (ContextCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-                    ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CALL_PHONE}, ConstantManager.REQUEST_CALL);
+                    ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CALL_PHONE}, ConstantManager.CALL_REQUEST_PERMISSION_CODE);
                 }
                 Uri phone = Uri.parse("tel:" + mUserPhone.getText().toString());
                 Intent call = new Intent(Intent.ACTION_CALL, phone);
@@ -290,27 +313,40 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     //установка NavigationDrawer
     private void setupDrawer() {
-        NavigationView navigationView = (NavigationView) findViewById(R.id.navigation_view);
-        Bitmap userphoto = BitmapFactory.decodeResource(getResources(), R.drawable.avatar);
-        if (userphoto != null) {
-            userphoto = RoundedAvatarDrawable.getRoundedBitmap(userphoto);
-            RoundedAvatarDrawable.setAvatarBitmap(userphoto, navigationView);
-        } else {
-            Log.d(TAG, "Userphoto is null");
-        }
-        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+        Log.d(TAG, "Drawer setup");
+        mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem item) {
                 showSnackbar(item.toString());
                 item.setChecked(true);
                 if (item.getItemId() == R.id.exit) {
-                    Intent login = new Intent(MainActivity.this, LoginActivity.class);
-                    startActivity(login);
+                    //            Intent login = new Intent(MainActivity.this, LoginActivity.class);
+                    //            startActivity(login);
                 }
                 mNavigationDrawer.closeDrawer(GravityCompat.START);
                 return false;
             }
         });
+    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasWindowFocus) {
+        super.onWindowFocusChanged(hasWindowFocus);
+        Bitmap userphoto = null;
+       //     mAvatar = RoundedAvatarDrawable.getAvatar(mNavigationView);
+    //        mAvatar.setImageURI(mDataManager.getPrefencesManager().loadUserPhotos().get(1));
+        // ((ImageView)navigationView.getHeaderView(0).findViewById(R.id.avatar)).setImageURI(mDataManager.getPrefencesManager().loadUserPhotos().get(1));
+        //   Log.d(TAG, userphoto.toString());
+        userphoto = ((BitmapDrawable)mAvatar.getDrawable()).getBitmap();// BitmapFactory.decodeFile(mDataManager.getPrefencesManager().loadUserPhotos().get(1).toString());//BitmapFactory.decodeResource(getResources(), R.drawable.avatar);
+        if (userphoto != null) {
+            Log.d(TAG, "!null");
+            userphoto = RoundedAvatarDrawable.getRoundedBitmap(userphoto);
+            mAvatar.setImageBitmap(userphoto);
+            RoundedAvatarDrawable.setAvatarBitmap(userphoto, mNavigationView);
+            Log.d(TAG, mAvatar.toString());
+        } else {
+            Log.d(TAG, "Userphoto is null");
+        }
     }
 
     //Обработка нажатия системной кнопки back(сворачивание NavigationDrawer)
@@ -333,13 +369,13 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             case ConstantManager.REQUEST_GALLERY_PICTURE:
                 if (resultCode == RESULT_OK && data != null) {
                     mSelectedImage = data.getData();
-                    insertProfileImage(mSelectedImage);
+                    insertProfileImage(mSelectedImage, mProfileImage);
                 }
                 break;
             case ConstantManager.REQUEST_CAMERA_PICTURE:
                 if (resultCode == RESULT_OK && mPhotoFile != null) {
                     mSelectedImage = Uri.fromFile(mPhotoFile);
-                    insertProfileImage(mSelectedImage);
+                    insertProfileImage(mSelectedImage, mProfileImage);
                 }
                 break;
         }
@@ -454,7 +490,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 }
                 break;
             //запрос разрешения совершать звонки
-            case ConstantManager.REQUEST_CALL:
+            case ConstantManager.CALL_REQUEST_PERMISSION_CODE:
                 try {
                     if (grantResults[0] == PackageManager.PERMISSION_DENIED) {
                         Snackbar.make(mCoordinatorLayout, "Для корректной работы необходимо дать требуемое разрешение", Snackbar.LENGTH_LONG).setAction("Разрешить", new View.OnClickListener() {
@@ -544,14 +580,17 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     }
 
     //вставка изображения в профиль
-    private void insertProfileImage(Uri selectedImage) {
-        Picasso.with(this).load(selectedImage).into(mProfileImage);
-        mDataManager.getPrefencesManager().saveUserPhoto(mSelectedImage);
+    private void insertProfileImage(Uri selectedImage, ImageView into) {
+        Picasso.with(this).load(selectedImage).into(into);
+        List<Uri> photos = new ArrayList<>();
+        photos.add(mSelectedImage);
+        photos.add(mSelectedImage);
+        mDataManager.getPrefencesManager().saveUserPhotos(photos);
         // TODO: 30.06.2016 сделать плейсхолдер и transform + crop
     }
 
     public void openApplicationSettings() {
         Intent appSettingsIntent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.parse("package:" + getPackageName()));
-        startActivityForResult(appSettingsIntent, ConstantManager.PERMISSION_REQUEST_SETTINGS_CODE);
+        startActivityForResult(appSettingsIntent, ConstantManager.SETTINGS_REQUEST_PERMISSION_CODE);
     }
 }
