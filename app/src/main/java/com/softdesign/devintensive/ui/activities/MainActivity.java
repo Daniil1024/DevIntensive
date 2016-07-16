@@ -140,7 +140,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         mUserInfoViews.add(mUserGit);
         mUserInfoViews.add(mUserBio);
         try {
-            int[] info = mDataManager.getPrefencesManager().loadUserInfo();
+            String[] info = mDataManager.getPrefencesManager().loadUserInfo();
             rating.setText(info[0]+"");
             codelines.setText(info[1]+"");
             projects.setText(info[2]+"");

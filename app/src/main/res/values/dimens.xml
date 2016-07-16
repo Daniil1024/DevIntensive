@@ -7,6 +7,7 @@
     <dimen name="size_small_24">24dp</dimen>
     <dimen name="size_medium_56">56dp</dimen>
     <dimen name="size_large_72">72dp</dimen>
+    <dimen name="size_big_72">72dp</dimen>
 
     <!-- Spaces -->
     <dimen name="spacing_small_8">8dp</dimen>
@@ -24,4 +25,5 @@
     <!-- Fonts -->
     <dimen name="font_small_14">14sp</dimen>
     <dimen name="font_medium_20">20sp</dimen>
+    <dimen name="font_large_24">24sp</dimen>
 </resources>

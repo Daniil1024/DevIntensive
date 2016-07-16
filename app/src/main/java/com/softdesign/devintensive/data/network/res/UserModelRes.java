@@ -148,16 +148,16 @@ public class UserModelRes {
         @Expose
         private String updated;
 
-        public int getProjects() {
-            return projects;
+        public String getProjects() {
+            return projects+"";
         }
 
-        public int getCodelines() {
-            return linesCode;
+        public String getCodelines() {
+            return linesCode+"";
         }
 
-        public int getRating() {
-            return rait;
+        public String getRating() {
+            return rait+"";
         }
     }
 

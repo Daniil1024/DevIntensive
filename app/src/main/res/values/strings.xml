@@ -19,4 +19,5 @@
     <string name="storage_removed">storage_removed</string>
     <string name="error_selecting_file">error_selecting_file</string>
     <string name="empty_directory">empty_directory</string>
+    <string name="profile.bio.dummy">Описание</string>
 </resources>
