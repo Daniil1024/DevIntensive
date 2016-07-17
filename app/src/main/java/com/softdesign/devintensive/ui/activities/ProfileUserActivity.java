@@ -46,7 +46,7 @@ public class ProfileUserActivity extends AppCompatActivity {
     @BindView(R.id.main_coordinator_container)
     CoordinatorLayout mCoordinatorLayout;
 
-  //  @BindView(R.id.repositories_list)
+    @BindView(R.id.repositories_list)
     ListView mRepoListView;
 
     @Override
@@ -55,7 +55,6 @@ public class ProfileUserActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profile_user);
         try {
             ButterKnife.bind(this);
-            mRepoListView = (ListView) findViewById(R.id.repositories_list);
             setupToolbar();
             initProfileData();
         } catch (Exception e) {

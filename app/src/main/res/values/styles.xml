@@ -36,6 +36,8 @@
     </style>
 
     <style name="ToolBarStyle" parent="Base.Widget.AppCompat.Toolbar">
-        <item name="android:background">@color/white</item>
+        <item name="android:textColorPrimary">@color/white</item>
+        <item name="android:textColorSecondary">@color/white</item>
+        <item name="android:actionMenuTextColor">@color/white</item>
     </style>
 </resources>

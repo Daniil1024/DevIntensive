@@ -3,9 +3,11 @@ package com.softdesign.devintensive.ui.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -39,13 +41,15 @@ public class UserListActivity extends AppCompatActivity implements SearchView.On
     Toolbar mToolbar;
     @BindView(R.id.navigation_drawer)
     DrawerLayout mNavigationDrawer;
+    @BindView(R.id.navigation_view)
+    NavigationView mNavigationView;
+
     @BindView(R.id.user_list)
     RecyclerView mRecyclerView;
 
     private DataManager mDataManager;
     private UsersAdapter mUsersAdapter;
     private List<UserListRes.UserData> mUsers;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,7 +106,7 @@ public class UserListActivity extends AppCompatActivity implements SearchView.On
                         });
 
                         mRecyclerView.setAdapter(mUsersAdapter);
-                    }
+                    } else Log.d(TAG, response.code()+"");
                 } catch (NullPointerException e) {
                     Log.e(TAG, e.toString());
                     showSnackbar("Что то пошло не так");
@@ -123,9 +127,31 @@ public class UserListActivity extends AppCompatActivity implements SearchView.On
     }
 
     private void setupDrawer() {
+        Log.d(TAG, "Drawer setup");
+        mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(MenuItem item) {
+                showSnackbar(item.toString());
+                item.setChecked(true);
+                if (item.getItemId() == R.id.exit) {
+                    //            Intent login = new Intent(MainActivity.this, LoginActivity.class);
+                    //            startActivity(login);
+                }
+                mNavigationDrawer.closeDrawer(GravityCompat.START);
+                return false;
+            }
+        });
     }
 
     private void setupToolbar() {
+        setSupportActionBar(mToolbar);
+        ActionBar actionBar = getSupportActionBar();
+
+      //  mAppBarParams = (AppBarLayout.LayoutParams) mCollapsingToolbar.getLayoutParams();
+        if (actionBar != null) {
+            actionBar.setHomeAsUpIndicator(R.drawable.ic_menu_black_24dp);
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
     }
 
     @Override
