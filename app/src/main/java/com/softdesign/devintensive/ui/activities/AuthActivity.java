@@ -117,7 +117,7 @@ public class AuthActivity extends BaseActivity implements OnClickListener {
                     mDataManager.getPrefencesManager().saveUserPhotos(photos);
 
                     try {
-                        int[] info = new int[3];
+                        String[] info = new String[3];
                         info[0] = response.body().getData().getUser().getProfileValues().getRating();
                         info[1] = response.body().getData().getUser().getProfileValues().getCodelines();
                         info[2] = response.body().getData().getUser().getProfileValues().getProjects();

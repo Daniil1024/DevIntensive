@@ -6,11 +6,14 @@ import android.util.Log;
 import com.softdesign.devintensive.data.network.RestService;
 import com.softdesign.devintensive.data.network.ServiceGenerator;
 import com.softdesign.devintensive.data.network.req.UserLoginReq;
+import com.softdesign.devintensive.data.network.res.UserListRes;
 import com.softdesign.devintensive.data.network.res.UserModelRes;
 import com.softdesign.devintensive.utils.DevintensiveApplication;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
 
 public class DataManager {
     private static DataManager INSTANCE = null;
@@ -52,6 +55,10 @@ public class DataManager {
     public retrofit2.Call<UserModelRes> loginUser(UserLoginReq userLoginReq) {
         List<String> userInfoData = new ArrayList<String>();
         return mRestService.loginUser(userLoginReq);
+    }
+
+    public Call<UserListRes> getUserList() {
+        return mRestService.getUserList();
     }
     //endregion
     //region ==========Database=========

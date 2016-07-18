@@ -31,4 +31,5 @@ public interface ConstantManager {
 
     String FIRST_NAME = "FIRST_NAME";
     String SECOND_NAME = "SECOND_NAME";
+    String PARCELABLE_KEY = "PARCELABLE_KEY";
 }

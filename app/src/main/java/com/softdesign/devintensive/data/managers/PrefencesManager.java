@@ -75,19 +75,19 @@ public class PrefencesManager {
         return mSharedPreferences.getString(ConstantManager.USER_ID_KEY, "null");
     }
 
-    public void saveUserInfo(int[] info) {
+    public void saveUserInfo(String[] info) {
         SharedPreferences.Editor editor = mSharedPreferences.edit();
-        editor.putInt(ConstantManager.RATING, info[0]);
-        editor.putInt(ConstantManager.CODELINES, info[1]);
-        editor.putInt(ConstantManager.PROJECTS, info[2]);
+        editor.putString(ConstantManager.RATING, info[0]);
+        editor.putString(ConstantManager.CODELINES, info[1]);
+        editor.putString(ConstantManager.PROJECTS, info[2]);
         editor.apply();
     }
 
-    public int[] loadUserInfo() {
-        int[] info = new int[3];
-        info[0] = mSharedPreferences.getInt(ConstantManager.RATING, '5');
-        info[1] = mSharedPreferences.getInt(ConstantManager.CODELINES, '5');
-        info[2] = mSharedPreferences.getInt(ConstantManager.PROJECTS, '5');
+    public String[] loadUserInfo() {
+        String[] info = new String[3];
+        info[0] = mSharedPreferences.getString(ConstantManager.RATING, "5");
+        info[1] = mSharedPreferences.getString(ConstantManager.CODELINES, "5");
+        info[2] = mSharedPreferences.getString(ConstantManager.PROJECTS, "5");
         return info;
     }
 
