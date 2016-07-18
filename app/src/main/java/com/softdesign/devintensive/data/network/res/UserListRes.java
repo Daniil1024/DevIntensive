@@ -53,6 +53,10 @@ public class UserListRes {
         @Expose
         private String updated;
 
+        public String getId() {
+            return id;
+        }
+
         public UserModelRes.PublicInfo getPublicInfo() {
             return publicInfo;
         }

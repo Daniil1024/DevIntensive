@@ -13,9 +13,9 @@ public class UserDTO implements Parcelable {
 
     private String mPhoto;
     private String mFullName;
-    private String mRating;
-    private String mCodeLines;
-    private String mProjects;
+    private int mRating;
+    private int mCodeLines;
+    private int mProjects;
     private String mBio;
 
     private List<String> mRepositories;
@@ -38,9 +38,9 @@ public class UserDTO implements Parcelable {
     protected UserDTO(Parcel in) {
         mPhoto = in.readString();
         mFullName = in.readString();
-        mRating = in.readString();
-        mCodeLines = in.readString();
-        mProjects = in.readString();
+        mRating = in.readInt();
+        mCodeLines = in.readInt();
+        mProjects = in.readInt();
         mBio = in.readString();
         if (in.readByte() == 0x01) {
             mRepositories = new ArrayList<String>();
@@ -59,9 +59,9 @@ public class UserDTO implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(mPhoto);
         dest.writeString(mFullName);
-        dest.writeString(mRating);
-        dest.writeString(mCodeLines);
-        dest.writeString(mProjects);
+        dest.writeInt(mRating);
+        dest.writeInt(mCodeLines);
+        dest.writeInt(mProjects);
         dest.writeString(mBio);
         if (mRepositories == null) {
             dest.writeByte((byte) (0x00));
@@ -92,15 +92,15 @@ public class UserDTO implements Parcelable {
         return mFullName;
     }
 
-    public String getRating() {
+    public int getRating() {
         return mRating;
     }
 
-    public String getProjects() {
+    public int getProjects() {
         return mProjects;
     }
 
-    public String getCodeLines() {
+    public int getCodeLines() {
         return mCodeLines;
     }
 

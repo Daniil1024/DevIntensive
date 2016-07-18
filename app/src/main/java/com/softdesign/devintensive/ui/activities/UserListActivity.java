@@ -82,7 +82,7 @@ public class UserListActivity extends AppCompatActivity implements SearchView.On
     }
 
     private void loadUsers() {
-        Call<UserListRes> call = mDataManager.getUserList();
+        Call<UserListRes> call = mDataManager.getUserListFromNetwork();
 
         call.enqueue(new Callback<UserListRes>() {
             @Override
