@@ -46,18 +46,26 @@ public class User {
     })
     private List<Repository> repositories;
 
+    /** Used for active entity operations. */
+    @Generated(hash = 1507654846)
+    private transient UserDao myDao;
+
+    /** Used to resolve relations */
+    @Generated(hash = 2040040024)
+    private transient DaoSession daoSession;
 
     public User(UserListRes.UserData userRes) {
-        this.remoteId = userRes.getId();
-        this.photo = userRes.getId();
-        this.fullName = userRes.getId();
-        this.searchName = fullName.toUpperCase();
-        this.searchName = userRes.getId();
-        this.rating = userRes.getProfileValues().getRating();
-        this.codeLines = userRes.getProfileValues().getCodelines();
-        this.projects = userRes.getProfileValues().getProjects();
-        this.bio = userRes.getPublicInfo().getBio();
+        remoteId = userRes.getId();
+        photo = userRes.getPublicInfo().getPhoto();
+        bio = userRes.getPublicInfo().getBio();
+        fullName = userRes.getFull_name();
+        searchName = fullName.toUpperCase();
+        rating = userRes.getProfileValues().getRating();
+        codeLines = userRes.getProfileValues().getCodelines();
+        projects = userRes.getProfileValues().getProjects();
+
     }
+
     /**
      * Convenient call for {@link org.greenrobot.greendao.AbstractDao#refresh(Object)}.
      * Entity must attached to an entity context.
@@ -128,14 +136,6 @@ public class User {
         this.daoSession = daoSession;
         myDao = daoSession != null ? daoSession.getUserDao() : null;
     }
-
-    /** Used for active entity operations. */
-    @Generated(hash = 1507654846)
-    private transient UserDao myDao;
-
-    /** Used to resolve relations */
-    @Generated(hash = 2040040024)
-    private transient DaoSession daoSession;
 
     public String getBio() {
         return this.bio;

@@ -12,6 +12,7 @@ import com.softdesign.devintensive.data.network.res.UserListRes;
 import com.softdesign.devintensive.data.network.res.UserModelRes;
 import com.softdesign.devintensive.data.storage.models.DaoSession;
 import com.softdesign.devintensive.data.storage.models.User;
+import com.softdesign.devintensive.data.storage.models.UserDao;
 import com.softdesign.devintensive.utils.DevintensiveApplication;
 import com.squareup.picasso.Picasso;
 
@@ -38,17 +39,17 @@ public class DataManager {
             this.mRestService = new ServiceGenerator().createService(RestService.class);
             this.mPicasso = new PicassoCache(mContext).getPicassoInstance();
             this.mDaoSession = DevintensiveApplication.getDaoSession();
-        }catch (Exception e) {
+        } catch (Exception e) {
             Log.d("DEV ", e.toString());
         }
     }
 
     public static DataManager getInstance() {
         try {
-        if(INSTANCE == null) {
-            INSTANCE = new DataManager();
-        }
-        }catch (Exception e) {
+            if (INSTANCE == null) {
+                INSTANCE = new DataManager();
+            }
+        } catch (Exception e) {
             Log.d("DEV ", e.toString());
         }
         return INSTANCE;
@@ -89,10 +90,32 @@ public class DataManager {
     }
 
     public List<User> getUserListFromDb() {
-        List<User> temp = new ArrayList<>();
-
-        return temp;
+        List<User> userList = new ArrayList<>();
+        try {
+            userList = mDaoSession.queryBuilder(User.class)
+                    .where(UserDao.Properties.CodeLines.gt(0))
+                    .orderDesc(UserDao.Properties.CodeLines)
+                    .build()
+                    .list();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return userList;
     }
 
+    public List<User> getUserListByName(String query) {
+
+        List<User> userList = new ArrayList<>();
+        try {
+            userList = mDaoSession.queryBuilder(User.class)
+                    .where(UserDao.Properties.Rating.gt(0), UserDao.Properties.SearchName.like("%" + query.toUpperCase() + "%"))
+                    .orderDesc(UserDao.Properties.CodeLines)
+                    .build()
+                    .list();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return userList;
+    }
     //endregion
 }

@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import com.softdesign.devintensive.R;
 import com.softdesign.devintensive.data.managers.DataManager;
-import com.softdesign.devintensive.data.network.res.UserListRes;
+import com.softdesign.devintensive.data.storage.models.User;
 import com.softdesign.devintensive.ui.views.AspectRatioImageView;
 import com.softdesign.devintensive.utils.ConstantManager;
 import com.squareup.picasso.Callback;
@@ -24,10 +24,10 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UserViewHold
 
     private static final String TAG = ConstantManager.TAG_PREFIX + " UsersAdapter";
     private Context mContext;
-    private List<UserListRes.UserData> mUsers;
+    private List<User> mUsers;
     private UserViewHolder.CustomClickListener mCustomClickListener;
 
-    public UsersAdapter(List<UserListRes.UserData> users, UserViewHolder.CustomClickListener customClickListener) {
+    public UsersAdapter(List<User> users, UserViewHolder.CustomClickListener customClickListener) {
         mUsers = users;
         mCustomClickListener = customClickListener;
     }
@@ -42,13 +42,13 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UserViewHold
     @Override
     public void onBindViewHolder(final UserViewHolder holder, int position) {
         try {
-            final UserListRes.UserData user = mUsers.get(position);
+            final User user = mUsers.get(position);
             final String userPhoto;
-            if (user.getPublicInfo().getPhoto().isEmpty()) {
+            if (user.getPhoto().isEmpty()) {
                 userPhoto = null;
-                Log.e(TAG, "onBindViewHolder: user with name " + user.getFull_name() + " has empty name");
+                Log.e(TAG, "onBindViewHolder: user with name " + user.getFullName() + " has empty name");
             } else {
-                userPhoto = user.getPublicInfo().getPhoto();
+                userPhoto = user.getPhoto();
             }
 
             DataManager.getInstance().getPicasso()
@@ -86,16 +86,16 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UserViewHold
                         }
                     });
 
-            holder.mFullName.setText(user.getFull_name());
-            holder.mRating.setText(user.getProfileValues().getRating() + "");
-            holder.mCodeLines.setText(user.getProfileValues().getCodelines() + "");
-            holder.mProjects.setText(user.getProfileValues().getProjects() + "");
+            holder.mFullName.setText(user.getFullName());
+            holder.mRating.setText(user.getRating() + "");
+            holder.mCodeLines.setText(user.getCodeLines() + "");
+            holder.mProjects.setText(user.getProjects() + "");
 
-            if (user.getPublicInfo().getBio() == null || user.getPublicInfo().getBio().isEmpty()) {
+            if (user.getBio() == null || user.getBio().isEmpty()) {
                 holder.mBio.setVisibility(View.GONE);
             } else {
                 holder.mBio.setVisibility(View.VISIBLE);
-                holder.mBio.setText(user.getPublicInfo().getBio());
+                holder.mBio.setText(user.getBio());
             }
         } catch (Exception e) {
             Log.d("DEV UsersAdapter", e.toString());

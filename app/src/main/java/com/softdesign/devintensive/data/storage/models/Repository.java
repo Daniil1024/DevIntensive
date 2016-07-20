@@ -2,12 +2,12 @@ package com.softdesign.devintensive.data.storage.models;
 
 import com.softdesign.devintensive.data.network.res.UserModelRes;
 
+import org.greenrobot.greendao.DaoException;
 import org.greenrobot.greendao.annotation.Entity;
+import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.NotNull;
 import org.greenrobot.greendao.annotation.Unique;
-import org.greenrobot.greendao.annotation.Generated;
-import org.greenrobot.greendao.DaoException;
 
 @Entity(active = true, nameInDb = "REPOSITORIES")
 public class Repository {
@@ -23,17 +23,10 @@ public class Repository {
 
     private String userRemoteId;
 
-    /** Used for active entity operations. */
-    @Generated(hash = 332345895)
-    private transient RepositoryDao myDao;
-
-    /** Used to resolve relations */
-    @Generated(hash = 2040040024)
-    private transient DaoSession daoSession;
-
-    public Repository(UserModelRes.Repo repo, String userId) {
-        this.repositoryName = repo.getGit();
-        this.userRemoteId = userId;
+    public Repository(UserModelRes.Repo repositoryRes, String userId) {
+        repositoryName = repositoryRes.getGit();
+        userRemoteId = userId;
+        remoteId = repositoryRes.getId();
     }
 
     /**
@@ -78,6 +71,14 @@ public class Repository {
         this.daoSession = daoSession;
         myDao = daoSession != null ? daoSession.getRepositoryDao() : null;
     }
+
+    /** Used for active entity operations. */
+    @Generated(hash = 332345895)
+    private transient RepositoryDao myDao;
+
+    /** Used to resolve relations */
+    @Generated(hash = 2040040024)
+    private transient DaoSession daoSession;
 
     public String getUserRemoteId() {
         return this.userRemoteId;

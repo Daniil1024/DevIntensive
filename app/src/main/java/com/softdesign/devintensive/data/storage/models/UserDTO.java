@@ -3,9 +3,6 @@ package com.softdesign.devintensive.data.storage.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.softdesign.devintensive.data.network.res.UserListRes;
-import com.softdesign.devintensive.data.network.res.UserModelRes;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,17 +17,17 @@ public class UserDTO implements Parcelable {
 
     private List<String> mRepositories;
 
-    public UserDTO(UserListRes.UserData userData) {
+    public UserDTO(User userData) {
         List<String> repoLink = new ArrayList<>();
 
-        mPhoto = userData.getPublicInfo().getPhoto();
-        mFullName = userData.getFull_name();
-        mRating = userData.getProfileValues().getRating();
-        mCodeLines = userData.getProfileValues().getCodelines();
-        mProjects = userData.getProfileValues().getProjects();
-        mBio = userData.getPublicInfo().getBio();
-        for (UserModelRes.Repo gitLink : userData.getRepositories().getRepo()) {
-            repoLink.add(gitLink.getGit());
+        mPhoto = userData.getPhoto();
+        mFullName = userData.getFullName();
+        mRating = userData.getRating();
+        mCodeLines = userData.getCodeLines();
+        mProjects = userData.getProjects();
+        mBio = userData.getBio();
+        for (Repository gitLink : userData.getRepositories()) {
+            repoLink.add(gitLink.getRepositoryName());
         }
         mRepositories = repoLink;
     }
