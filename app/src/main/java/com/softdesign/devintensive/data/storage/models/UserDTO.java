@@ -3,9 +3,6 @@ package com.softdesign.devintensive.data.storage.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.softdesign.devintensive.data.network.res.UserListRes;
-import com.softdesign.devintensive.data.network.res.UserModelRes;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,24 +10,24 @@ public class UserDTO implements Parcelable {
 
     private String mPhoto;
     private String mFullName;
-    private String mRating;
-    private String mCodeLines;
-    private String mProjects;
+    private int mRating;
+    private int mCodeLines;
+    private int mProjects;
     private String mBio;
 
     private List<String> mRepositories;
 
-    public UserDTO(UserListRes.UserData userData) {
+    public UserDTO(User userData) {
         List<String> repoLink = new ArrayList<>();
 
-        mPhoto = userData.getPublicInfo().getPhoto();
-        mFullName = userData.getFull_name();
-        mRating = userData.getProfileValues().getRating();
-        mCodeLines = userData.getProfileValues().getCodelines();
-        mProjects = userData.getProfileValues().getProjects();
-        mBio = userData.getPublicInfo().getBio();
-        for (UserModelRes.Repo gitLink : userData.getRepositories().getRepo()) {
-            repoLink.add(gitLink.getGit());
+        mPhoto = userData.getPhoto();
+        mFullName = userData.getFullName();
+        mRating = userData.getRating();
+        mCodeLines = userData.getCodeLines();
+        mProjects = userData.getProjects();
+        mBio = userData.getBio();
+        for (Repository gitLink : userData.getRepositories()) {
+            repoLink.add(gitLink.getRepositoryName());
         }
         mRepositories = repoLink;
     }
@@ -38,9 +35,9 @@ public class UserDTO implements Parcelable {
     protected UserDTO(Parcel in) {
         mPhoto = in.readString();
         mFullName = in.readString();
-        mRating = in.readString();
-        mCodeLines = in.readString();
-        mProjects = in.readString();
+        mRating = in.readInt();
+        mCodeLines = in.readInt();
+        mProjects = in.readInt();
         mBio = in.readString();
         if (in.readByte() == 0x01) {
             mRepositories = new ArrayList<String>();
@@ -59,9 +56,9 @@ public class UserDTO implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(mPhoto);
         dest.writeString(mFullName);
-        dest.writeString(mRating);
-        dest.writeString(mCodeLines);
-        dest.writeString(mProjects);
+        dest.writeInt(mRating);
+        dest.writeInt(mCodeLines);
+        dest.writeInt(mProjects);
         dest.writeString(mBio);
         if (mRepositories == null) {
             dest.writeByte((byte) (0x00));
@@ -92,15 +89,15 @@ public class UserDTO implements Parcelable {
         return mFullName;
     }
 
-    public String getRating() {
+    public int getRating() {
         return mRating;
     }
 
-    public String getProjects() {
+    public int getProjects() {
         return mProjects;
     }
 
-    public String getCodeLines() {
+    public int getCodeLines() {
         return mCodeLines;
     }
 

@@ -98,6 +98,10 @@ public class UserModelRes {
         @Expose
         private String title;
 
+        public String getId() {
+            return id;
+        }
+
         public String getGit() {
             return git;
         }
@@ -148,16 +152,16 @@ public class UserModelRes {
         @Expose
         private String updated;
 
-        public String getProjects() {
-            return projects+"";
+        public int getProjects() {
+            return projects;
         }
 
-        public String getCodelines() {
-            return linesCode+"";
+        public int getCodelines() {
+            return linesCode;
         }
 
-        public String getRating() {
-            return rait+"";
+        public int getRating() {
+            return rait;
         }
     }
 

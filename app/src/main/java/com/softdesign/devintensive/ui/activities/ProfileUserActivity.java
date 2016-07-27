@@ -18,10 +18,15 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.softdesign.devintensive.R;
+import com.softdesign.devintensive.data.storage.models.LoadingEvent;
 import com.softdesign.devintensive.data.storage.models.UserDTO;
 import com.softdesign.devintensive.ui.adapters.RepositoriesAdapter;
 import com.softdesign.devintensive.utils.ConstantManager;
 import com.squareup.picasso.Picasso;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.List;
 
@@ -56,10 +61,24 @@ public class ProfileUserActivity extends AppCompatActivity {
         try {
             ButterKnife.bind(this);
             setupToolbar();
-            initProfileData();
         } catch (Exception e) {
             Log.e("DEV ProfileUserActivity", e.toString());
         }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+        EventBus.getDefault().post(new LoadingEvent(1));
+        initProfileData();
+        EventBus.getDefault().post(new LoadingEvent(2));
+    }
+
+    @Override
+    protected void onStop() {
+        EventBus.getDefault().unregister(this);
+        super.onStop();
     }
 
     private void setupToolbar() {
@@ -88,10 +107,10 @@ public class ProfileUserActivity extends AppCompatActivity {
                 }
             });
 
-            mUserRating.setText(userDTO.getRating());
-            mUserCodeLines.setText(userDTO.getCodeLines());
-            mUserProjects.setText(userDTO.getProjects());
-            mUserBio.setText(userDTO.getBio());
+            mUserRating.setText(userDTO.getRating()+"");
+            mUserCodeLines.setText(userDTO.getCodeLines()+"");
+            mUserProjects.setText(userDTO.getProjects()+"");
+            mUserBio.setText(userDTO.getBio()+"");
 
             mCollapsingToolbarLayout.setTitle(userDTO.getFullName());
 
@@ -103,5 +122,17 @@ public class ProfileUserActivity extends AppCompatActivity {
         }catch(Exception e){
             Log.e("DEV PUA(iPD)", e.toString());
         }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+        public void onLoadingEvent(LoadingEvent event) {
+            switch(event.status) {
+                case 1:
+                    Log.d("DEV_TESTING_EVENTBUS", "loading began");
+                    break;
+                case 2:
+                    Log.d("DEV_TESTING_EVENTBUS", "loading ended");
+                    break;
+            }
     }
 }
